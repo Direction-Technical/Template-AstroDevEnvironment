@@ -3,12 +3,8 @@
 # Start SSH agent
 eval "$(ssh-agent -s)"
 
-# Add SSH key
-if [ -f "/root/.ssh/id_ed25519" ]; then
-  ssh-add /root/.ssh/id_ed25519
-else
-  echo "SSH key not found at /root/.ssh/id_ed25519"
-fi
+# Add SSH key to agent
+ssh-add /root/.ssh/id_ed25519
 
 cd /workspace
 
@@ -21,8 +17,6 @@ else
   echo "Repo already present. Skipping clone."
   cd repo
 fi
-
-
 
 if [ -z "$(ls -A astro-app)" ]; then
     echo "This is a fresh repo. Initializing Astro project with Citrus template..."
@@ -43,4 +37,5 @@ fi
 npm install
 
 # Keep the container running
-exec "$@"
+echo "Starting dev server."
+npm run dev
