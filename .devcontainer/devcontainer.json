@@ -1,0 +1,33 @@
+{
+  "name": "Astro Dev Container",
+  "dockerComposeFile": [
+    "../docker-compose.yml"
+  ],
+  "service": "dev",
+  "workspaceFolder": "/workspace/repo",
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [4321, 8080],
+  "remoteUser": "root",
+  "envFile": "../.env",
+  "mounts": [
+    "source=astro_workspace,target=/workspace,type=volume"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    }
+  },
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      },
+      "extensions": [
+        "astro-build.astro-vscode",
+        "tinacms.tinacms-vscode",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
