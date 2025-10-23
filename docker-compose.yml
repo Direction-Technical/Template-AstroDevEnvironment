@@ -1,0 +1,33 @@
+name: ${PROJECT_NAME}
+
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: npm run dev
+    ports:
+      - "${DEV_PORT}:4321"
+    environment:
+      - REPO_URL=${REPO_URL}
+    volumes:
+      - astro_workspace:/workspace
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+
+  final:
+    image: node:18
+    working_dir: /workspace/repo/astro-app
+    command: sh -c "npm install && npm run build && npx astro preview"
+    ports:
+      - "${FINAL_PORT}:4321"
+    volumes:
+      - astro_workspace:/workspace
+    env_file:
+      - .env
+
+volumes:
+  astro_workspace:
+  
