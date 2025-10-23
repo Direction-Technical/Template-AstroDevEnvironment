@@ -28,5 +28,3 @@ RUN ssh-keyscan github.com >> /root/.ssh/known_hosts && chmod 600 /root/.ssh/kno
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
