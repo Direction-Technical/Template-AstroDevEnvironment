@@ -1,6 +1,19 @@
 name: ${PROJECT_NAME}
 
 services:
+  # Connect VS to this:
+  workspace:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace/repo/
+    volumes:
+      - astro_workspace:/workspace
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+
   dev:
     build:
       context: .
