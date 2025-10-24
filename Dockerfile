@@ -10,9 +10,11 @@ RUN apt-get update && apt-get install -y \
     curl \
     nano
 
-# Install create-astro app
-RUN npm install -g create-astro@latest \
-  && echo "Installed create-astro at: $(which create-astro)"
+
+# Copy package.json and install dependencies
+COPY package.json .
+RUN npm install \
+  && echo "Installed dependencies from package.json"
 
 # Create workspace
 WORKDIR /workspace

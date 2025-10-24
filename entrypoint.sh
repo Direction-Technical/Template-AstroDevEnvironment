@@ -20,7 +20,7 @@ fi
 
 if [ -z "$(ls -A astro-app)" ]; then
     echo "This is a fresh repo. Initializing Astro project with Citrus template..."
-    create-astro astro-app \
+    npx create-astro astro-app \
       --template artemkutsan/astro-citrus \
       --yes \
       --install \
