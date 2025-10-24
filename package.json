@@ -1,0 +1,11 @@
+{
+  "name": "astro-dev-env",
+  "version": "1.0.0",
+  "dependencies": {
+    "create-astro": "*",
+    "react": "*",
+    "markdoc": "*",
+    "@keystatic/core": "*",
+    "@keystatic/astro": "*"
+  }
+}
