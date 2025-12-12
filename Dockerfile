@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
     git \
     openssh-client \
     curl \
-    nano
+    nano \
+    dos2unix
 
 
 # Copy package.json and install dependencies
@@ -29,4 +30,6 @@ RUN ssh-keyscan github.com >> /root/.ssh/known_hosts && chmod 600 /root/.ssh/kno
 
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
+RUN dos2unix /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
