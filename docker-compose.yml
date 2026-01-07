@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
       args:
         NODE_VERSION: ${NODE_VERSION}
+        GIT_USERNAME: ${GIT_USERNAME}
+        GIT_USEREMAIL: ${GIT_USEREMAIL}
     working_dir: /workspace/repo/
     volumes:
       - astro_workspace:/workspace
@@ -22,6 +24,8 @@ services:
       dockerfile: Dockerfile
       args:
         NODE_VERSION: ${NODE_VERSION}
+        GIT_USERNAME: ${GIT_USERNAME}
+        GIT_USEREMAIL: ${GIT_USEREMAIL}
     command: sh -c "/entrypoint.sh"
     ports:
       - "${DEV_PORT}:4321"
