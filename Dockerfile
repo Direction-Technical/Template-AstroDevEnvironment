@@ -1,4 +1,6 @@
+ARG NODE_VERSION=24
 ARG NODE_VERSION=18
+
 FROM node:${NODE_VERSION}
 
 ENV PATH="$PATH:/usr/local/bin"
@@ -8,8 +10,8 @@ RUN apt-get update && apt-get install -y \
     git \
     openssh-client \
     curl \
-    nano
-
+    nano \
+    dos2unix
 
 # Copy package.json and install dependencies
 COPY package.json .
@@ -24,9 +26,14 @@ COPY ssh/id_ed25519 /root/.ssh/id_ed25519
 COPY ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
 RUN chmod 600 /root/.ssh/id_ed25519 && chmod 644 /root/.ssh/id_ed25519.pub
 
+
 # Add GitHub's host key to known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts && chmod 600 /root/.ssh/known_hosts
 
+# Setup git user.name and user.email
+RUN git config --global user.name "Dev Container User" && git config --global user.email "devcontainer@example.com"
+
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
+RUN dos2unix /entrypoint.sh
 RUN chmod +x /entrypoint.sh
