@@ -8,14 +8,18 @@ ssh-add /root/.ssh/id_ed25519
 
 cd /workspace
 
-# Clone repo only if .git is missing
-if [ ! -d "./repo/.git" ]; then
+# Handle repo cloning or creation
+if [ -d "./repo/.git" ]; then
+  echo "Repo already present. Skipping clone."
+  cd ./repo
+elif [ -n "$REPO_URL" ]; then
   echo "Cloning repo: $REPO_URL"
   git clone "$REPO_URL" ./repo
   cd ./repo
 else
-  echo "Repo already present. Skipping clone."
-  cd repo
+  echo "REPO_URL is not set. Creating repo directory and skipping clone."
+  mkdir -p ./repo
+  cd ./repo
 fi
 
 if [ -z "$(ls -A astro-app)" ]; then
@@ -29,7 +33,7 @@ if [ -z "$(ls -A astro-app)" ]; then
     echo "... project initialized."
     cd astro-app
 else
-    echo "The 'astro-app' directory is not empty. Skipping Astro project creation."
+    echo "The \'astro-app\' directory is not empty. Skipping Astro project creation."
     cd astro-app
     
 fi
