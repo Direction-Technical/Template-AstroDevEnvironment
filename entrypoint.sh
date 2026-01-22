@@ -34,8 +34,5 @@ else
     
 fi
 
-npm install
-
 # Keep the container running
-echo "Starting dev server."
-npm run dev
+tail -f /dev/null
