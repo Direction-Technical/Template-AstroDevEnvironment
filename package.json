@@ -5,7 +5,6 @@
     "create-astro": "*",
     "react": "*",
     "markdoc": "*",
-    "@keystatic/core": "*",
-    "@keystatic/astro": "*"
+    "astro": "*"
   }
 }
