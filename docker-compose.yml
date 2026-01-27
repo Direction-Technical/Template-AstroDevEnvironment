@@ -28,7 +28,7 @@ services:
         GIT_USERNAME: ${GIT_USERNAME}
         GIT_USEREMAIL: ${GIT_USEREMAIL}
     command: sh -c "npm install && npm run dev -- --verbose --host"
-    working_dir: /workspace/repo/astro-app
+    working_dir: /workspace/repo/
     ports:
       - "${DEV_PORT}:4321"
     environment:
@@ -42,7 +42,7 @@ services:
 
   final:
     image: node:${NODE_VERSION}
-    working_dir: /workspace/repo/astro-app
+    working_dir: /workspace/repo/
     command: sh -c "npm install && npm run build && npx astro preview"
     ports:
       - "${FINAL_PORT}:4321"

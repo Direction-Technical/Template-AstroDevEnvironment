@@ -15,28 +15,21 @@ if [ -d "./repo/.git" ]; then
 elif [ -n "$REPO_URL" ]; then
   echo "Cloning repo: $REPO_URL"
   git clone "$REPO_URL" ./repo
-  cd ./repo
-else
-  echo "REPO_URL is not set. Creating repo directory and skipping clone."
-  mkdir -p ./repo
-  cd ./repo
-fi
-
-if [ -z "$(ls -A astro-app)" ]; then
-    echo "This is a fresh repo. Initializing Astro project with Citrus template..."
-    npx create-astro astro-app \
-      --template artemkutsan/astro-citrus \
+elif [ -n "$ASTRO_TEMPLATE" ]; then
+  echo "This is a fresh repo. Initializing Astro project with $ASTRO_TEMPLATE template..."
+    npx create-astro repo \
+      --template $ASTRO_TEMPLATE \
       --yes \
-      --install \
-      --no-git
-
-    echo "... project initialized."
-    cd astro-app
+      --install
 else
-    echo "The \'astro-app\' directory is not empty. Skipping Astro project creation."
-    cd astro-app
-    
+  echo "This is a fresh repo. Initializing Astro project with default template..."
+    npx create-astro repo \
+      --yes \
+      --install
 fi
+
+cd repo
+echo "... project initialized in $PWD."
 
 # Keep the container running
 tail -f /dev/null
