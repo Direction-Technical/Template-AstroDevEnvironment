@@ -31,5 +31,13 @@ fi
 cd repo
 echo "... project initialized in $PWD."
 
+if [ -n "$GIT_USERNAME" ] && [ -n "$GIT_USEREMAIL" ]; then
+  echo "Configuring git with provided ${GIT_USERNAME} and ${GIT_USEREMAIL}..."
+  git config --global user.name "${GIT_USERNAME}" 
+  git config --global user.email "${GIT_USEREMAIL}"
+else
+  echo "GIT_USERNAME or GIT_USEREMAIL not set. Skipping git configuration."
+fi
+
 # Keep the container running
 tail -f /dev/null
