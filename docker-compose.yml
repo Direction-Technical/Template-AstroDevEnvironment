@@ -8,10 +8,8 @@ services:
       dockerfile: Dockerfile
       args:
         NODE_VERSION: ${NODE_VERSION}
-        GIT_USERNAME: ${GIT_USERNAME}
-        GIT_USEREMAIL: ${GIT_USEREMAIL}
     command: sh -c "/entrypoint.sh" 
-    working_dir: /workspace/repo/
+    working_dir: /workspace/${PROJECT_NAME}/
     volumes:
       - astro_workspace:/workspace
     env_file:
@@ -27,8 +25,8 @@ services:
         NODE_VERSION: ${NODE_VERSION}
         GIT_USERNAME: ${GIT_USERNAME}
         GIT_USEREMAIL: ${GIT_USEREMAIL}
-    command: sh -c "npm install && npm run dev -- --verbose --host"
-    working_dir: /workspace/repo/
+    command: sh -c "npm cache clean --force &&npm install && npm run dev -- --host"
+    working_dir: /workspace/${PROJECT_NAME}/
     ports:
       - "${DEV_PORT}:4321"
     environment:
@@ -42,8 +40,8 @@ services:
 
   final:
     image: node:${NODE_VERSION}
-    working_dir: /workspace/repo/
-    command: sh -c "npm install && npm run build && npx astro preview"
+    working_dir: /workspace/${PROJECT_NAME}/
+    command: sh -c "npm cache clean --force &&npm install && npm run build && npx astro preview"
     ports:
       - "${FINAL_PORT}:4321"
     volumes:
