@@ -23,8 +23,6 @@ services:
       dockerfile: Dockerfile
       args:
         NODE_VERSION: ${NODE_VERSION}
-        GIT_USERNAME: ${GIT_USERNAME}
-        GIT_USEREMAIL: ${GIT_USEREMAIL}
     command: sh -c "npm cache clean --force &&npm install && npm run dev -- --host"
     working_dir: /workspace/${PROJECT_NAME}/
     ports:

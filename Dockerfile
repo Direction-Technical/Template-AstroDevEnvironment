@@ -30,8 +30,6 @@ RUN chmod 600 /root/.ssh/id_ed25519 && chmod 644 /root/.ssh/id_ed25519.pub
 # Add GitHub's host key to known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts && chmod 600 /root/.ssh/known_hosts
 
-# Setup git user.name and user.email
-
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN dos2unix /entrypoint.sh
