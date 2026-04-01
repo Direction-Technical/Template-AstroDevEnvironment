@@ -5,7 +5,7 @@ services:
   workspace:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: astro/Dockerfile
       args:
         NODE_VERSION: ${NODE_VERSION}
     command: sh -c "/entrypoint.sh" 
@@ -20,7 +20,7 @@ services:
   dev:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: astro/Dockerfile
       args:
         NODE_VERSION: ${NODE_VERSION}
     command: sh -c "npm cache clean --force && npm install && npm run dev -- --host"

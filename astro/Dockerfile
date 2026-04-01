@@ -1,6 +1,4 @@
 ARG NODE_VERSION=24
-ARG GIT_USERNAME=Direction Technical
-ARG GIT_USEREMAIL=info@directiontechnical.co.uk
 
 FROM node:${NODE_VERSION}
 
@@ -15,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     dos2unix
 
 # Copy package.json and install dependencies
-COPY package.json .
+COPY astro/package.json .
 RUN npm install \
   && echo "Installed dependencies from package.json"
 
@@ -31,6 +29,6 @@ RUN chmod 600 /root/.ssh/id_ed25519 && chmod 644 /root/.ssh/id_ed25519.pub
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts && chmod 600 /root/.ssh/known_hosts
 
 # Copy entrypoint
-COPY entrypoint.sh /entrypoint.sh
+COPY astro/entrypoint.sh /entrypoint.sh
 RUN dos2unix /entrypoint.sh
 RUN chmod +x /entrypoint.sh
